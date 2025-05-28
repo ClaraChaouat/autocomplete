@@ -40,6 +40,8 @@ VITE_USE_MOCK=true	Forces the component to use local mock data instead of callin
 VITE_USE_MOCK=false	Enables live API requests (default for real usage)
 VITE_REST_COUNTRIES_API	The base URL used to fetch country suggestions from REST Countries
 
+After modifying the .env file, restart the dev server:
+
 ```npm run dev ```
 
 PS: no tests are implemented yet
