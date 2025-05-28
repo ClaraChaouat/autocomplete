@@ -7,3 +7,4 @@ export const mockData: SuggestionItem[] = [
     { id: 4, name: 'Node.js' },
     { id: 5, name: 'Python' }
 ]
+

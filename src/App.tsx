@@ -1,15 +1,15 @@
-import type { FC } from 'react'
-import Autocomplete from './components/Autocomplete'
 import type { SuggestionItem } from './types'
+import Autocomplete from './components/Autocomplete'
+import styles from './App.module.css'
 
-const App: FC = () => {
+const App = () => {
   const handleSelect = (item: SuggestionItem) => {
     console.log('Selected:', item)
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Autocomplete Demo</h1>
+    <div className={styles.appWrapper}>
+      <h1 className={styles.title}>Autocomplete Demo</h1>
       <Autocomplete
         placeholder="Search programming languages..."
         onSelect={handleSelect}
