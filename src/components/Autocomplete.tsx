@@ -95,7 +95,13 @@ const Autocomplete: FC<AutocompleteProps> = ({
                 )}
             </div>
 
-            {error && <div className={styles.error}>{error}</div>}
+            {error && (
+                <div className={styles.statusRow}>
+                    <div className={styles.error} role="alert">
+                        {error}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
