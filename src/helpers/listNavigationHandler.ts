@@ -1,0 +1,46 @@
+import type { KeyboardEvent } from 'react'
+import type { SuggestionItem } from '../types'
+
+interface KeyDownHandlerParams {
+    isOpen: boolean
+    suggestions: SuggestionItem[]
+    activeIndex: number
+    setActiveIndex: (index: number | ((prev: number) => number)) => void
+    onSelect: (item: SuggestionItem) => void
+    setIsOpen: (open: boolean) => void
+}
+
+export function getKeyDownHandler({
+    isOpen,
+    suggestions,
+    activeIndex,
+    setActiveIndex,
+    onSelect,
+    setIsOpen
+}: KeyDownHandlerParams) {
+    return (e: KeyboardEvent<HTMLInputElement>) => {
+        if (!isOpen) return
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault()
+                setActiveIndex(prev => Math.min(prev + 1, suggestions.length - 1))
+                break
+            case 'ArrowUp':
+                e.preventDefault()
+                setActiveIndex(prev => Math.max(prev - 1, -1))
+                break
+            case 'Enter':
+                e.preventDefault()
+                if (activeIndex >= 0) {
+                    onSelect(suggestions[activeIndex])
+                    setIsOpen(false)
+                }
+                break
+            case 'Escape':
+                e.preventDefault()
+                setIsOpen(false)
+                break
+        }
+    }
+}

@@ -1,5 +1,5 @@
-import type { SuggestionItem } from '../types'
 import { mockData } from '../data/mockData'
+import type { SuggestionItem } from '../types'
 
 /**
  * Simulates an API call to fetch suggestions based on search query
