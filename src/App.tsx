@@ -11,7 +11,7 @@ const App = () => {
     <div className={styles.appWrapper}>
       <h1 className={styles.title}>Autocomplete Demo</h1>
       <Autocomplete
-        placeholder="Search programming languages..."
+        placeholder="Search countries..."
         onSelect={handleSelect}
       />
     </div>
