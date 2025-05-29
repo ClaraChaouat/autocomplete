@@ -7,7 +7,10 @@ const config: Config = {
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
     },
-    moduleNameMapper: {},
+
+    moduleNameMapper: {
+        '\\.module\\.css$': 'identity-obj-proxy',
+    },
 }
 
 export default config
