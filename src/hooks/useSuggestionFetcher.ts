@@ -24,6 +24,7 @@ export const useSuggestionFetcher = ({
             setSuggestions([])
             setIsOpen(false)
             setIsLoading(false)
+            setError(null)
             return
         }
 
