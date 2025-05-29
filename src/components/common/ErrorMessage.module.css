@@ -1,6 +1,4 @@
-.statusRow {
-  height: 20px;
-}
+
 
 .error {
   color: var(--color-error, #ff3b30);
