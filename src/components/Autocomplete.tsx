@@ -80,11 +80,11 @@ const Autocomplete: FC<AutocompleteProps> = ({
                         const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(raw)
 
                         if (!isValid) {
-                            setInputError('Invalid input -  only letters, spaces, apostrophes, and hyphens are allowed.')
-                            return
+                            setInputError('Invalid input – only letters, spaces, apostrophes, and hyphens are allowed.')
+                        } else {
+                            setInputError(null)
                         }
 
-                        setInputError(null)
                         setInputValue(raw.trimStart())
                     }}
                     onKeyDown={handleKeyDown}
@@ -93,12 +93,6 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     aria-expanded={isOpen}
                     role="combobox"
                 />
-
-                {inputError && (
-                    <div className={styles.error} role="alert">
-                        {inputError}
-                    </div>
-                )}
 
                 {isOpen && (
                     <ul className={styles.suggestionsList} role="listbox">
@@ -113,15 +107,14 @@ const Autocomplete: FC<AutocompleteProps> = ({
                 )}
             </div>
 
-            {error && (
-                <div className={styles.statusRow}>
-                    <div className={styles.error} role="alert">
-                        {error}
-                    </div>
+            <div className={styles.statusRow}>
+                <div className={styles.error} role="alert">
+                    {inputError || error || '\u00A0'}
                 </div>
-            )}
+            </div>
         </div>
     )
+
 }
 
 export default Autocomplete

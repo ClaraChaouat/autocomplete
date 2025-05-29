@@ -12,10 +12,7 @@ interface CountryResponseItem {
 
 const cache: Record<string, SuggestionItem[]> = {}
 
-/**
- * Fetches suggestions from either a public API or mock data
- * depending on the USE_MOCK flag, with caching.
- */
+
 export const getSuggestions = async (query: string): Promise<SuggestionItem[]> => {
     const normalizedQuery = query.toLowerCase().trim()
     if (!normalizedQuery) return []

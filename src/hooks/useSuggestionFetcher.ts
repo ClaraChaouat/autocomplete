@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import type { SuggestionItem } from '../types'
 import { getSuggestions } from '../utils/getSuggestions'
@@ -20,6 +19,16 @@ export const useSuggestionFetcher = ({
 
     useEffect(() => {
         const trimmedQuery = query.trim()
+
+        const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(trimmedQuery)
+        if (!isValid) {
+            setSuggestions([])
+            setIsOpen(false)
+            setIsLoading(false)
+            setError(null)
+            return
+        }
+
         if (trimmedQuery.length < AUTOCOMPLETE_CONFIG.MIN_SEARCH_LENGTH) {
             setSuggestions([])
             setIsOpen(false)
@@ -39,6 +48,7 @@ export const useSuggestionFetcher = ({
             } catch (err) {
                 setError(`Failed to fetch suggestions: ${err instanceof Error ? err.message : String(err)}`)
                 setSuggestions([])
+                setIsOpen(false)
             } finally {
                 setIsLoading(false)
             }
