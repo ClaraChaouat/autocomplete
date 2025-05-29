@@ -8,6 +8,7 @@ interface KeyDownHandlerParams {
     setActiveIndex: (index: number | ((prev: number) => number)) => void
     onSelect: (item: SuggestionItem) => void
     setIsOpen: (open: boolean) => void
+    setInputValue: (value: string) => void
 }
 
 export function getKeyDownHandler({
@@ -16,7 +17,8 @@ export function getKeyDownHandler({
     activeIndex,
     setActiveIndex,
     onSelect,
-    setIsOpen
+    setIsOpen,
+    setInputValue
 }: KeyDownHandlerParams) {
     return (e: KeyboardEvent<HTMLInputElement>) => {
         if (!isOpen) return
@@ -33,12 +35,22 @@ export function getKeyDownHandler({
             case 'Enter':
                 e.preventDefault()
                 if (activeIndex >= 0) {
-                    onSelect(suggestions[activeIndex])
+                    const selectedItem = suggestions[activeIndex]
+                    setInputValue(selectedItem.name)
+                    onSelect(selectedItem)
                     setIsOpen(false)
                 }
                 break
             case 'Escape':
                 e.preventDefault()
+                setIsOpen(false)
+                break
+            case 'Tab':
+                if (activeIndex >= 0) {
+                    const selectedItem = suggestions[activeIndex]
+                    setInputValue(selectedItem.name)
+                    onSelect(selectedItem)
+                }
                 setIsOpen(false)
                 break
         }

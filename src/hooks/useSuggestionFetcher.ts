@@ -41,12 +41,23 @@ export const useSuggestionFetcher = ({
 
         try {
             const results = await getSuggestions(trimmedQuery)
-            setState({
-                suggestions: results.slice(0, maxSuggestions),
-                isLoading: false,
-                error: null,
-                isOpen: results.length > 0
+            setState(prev => {
+                const nextSuggestions = results.slice(0, maxSuggestions)
+
+                const areSame =
+                    prev.suggestions.length === nextSuggestions.length &&
+                    prev.suggestions.every((item, i) => item.name === nextSuggestions[i].name)
+
+                return areSame
+                    ? { ...prev, isLoading: false, error: null, isOpen: nextSuggestions.length > 0 }
+                    : {
+                        suggestions: nextSuggestions,
+                        isLoading: false,
+                        error: null,
+                        isOpen: nextSuggestions.length > 0
+                    }
             })
+
         } catch (err) {
             setState({
                 suggestions: [],
