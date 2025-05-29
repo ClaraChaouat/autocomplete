@@ -8,6 +8,8 @@
   --color-text-muted: #666;
   --color-text-disabled: #888;
   --color-background: white;
+   --color-background-active: #f0f0f0;
+  --color-highlight: #fff3bf;
   --color-error: #ff3b30;
   --color-shadow: rgba(0, 0, 0, 0.05);
 
