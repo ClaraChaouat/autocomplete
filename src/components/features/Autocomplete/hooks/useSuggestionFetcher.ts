@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import type { SuggestionItem } from '../types'
 import { getSuggestions } from '../utils/getSuggestions'
 import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteConstants'
@@ -25,11 +25,22 @@ interface UseSuggestionFetcherProps {
 
 export const useSuggestionFetcher = ({
     query,
-    maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS
+    maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS,
+    justSelected
 }: UseSuggestionFetcherProps) => {
     const [state, setState] = useState<FetchState>(initialState)
+    const justSelectedRef = useRef(false);
+
+    useEffect(() => {
+        justSelectedRef.current = justSelected || false;
+
+    }, [justSelected])
 
     const fetchSuggestions = useCallback(async () => {
+        if (justSelectedRef.current) {
+            justSelectedRef.current = false
+            return
+        }
 
         const trimmedQuery = query.trim()
 
