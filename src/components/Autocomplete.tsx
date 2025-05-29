@@ -34,7 +34,8 @@ const Autocomplete: FC<AutocompleteProps> = ({
         activeIndex,
         setActiveIndex,
         onSelect,
-        setIsOpen
+        setIsOpen,
+        setInputValue
     })
 
     const closeDropdown = useCallback(() => {
@@ -54,6 +55,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
             aria-selected={index === activeIndex}
             className={`${styles.suggestionItem} ${index === activeIndex ? styles.active : ''}`}
             onClick={() => {
+                setInputValue(item.name)
                 onSelect(item)
                 setIsOpen(false)
             }}
@@ -61,6 +63,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
             {highlightTextMatch(item.name, inputValue, styles.highlight)}
         </li>
     )
+
 
     return (
         <div className={styles.container} ref={containerRef}>
@@ -92,6 +95,9 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     className={styles.input}
                     aria-expanded={isOpen}
                     role="combobox"
+                    aria-autocomplete="list"
+                    aria-controls="autocomplete-listbox"
+                    aria-activedescendant={activeIndex >= 0 ? `option-${activeIndex}` : undefined}
                 />
 
                 {isOpen && (

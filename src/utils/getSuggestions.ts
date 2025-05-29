@@ -67,10 +67,18 @@ export const getSuggestions = async (query: string): Promise<SuggestionItem[]> =
         }
 
         const data: CountryResponseItem[] = await response.json()
-        const results = data.map((country, index) => ({
-            id: index,
-            name: country.name.common
-        }))
+        const results = data
+            .map((country, index) => ({
+                id: index,
+                name: country.name.common
+            }))
+            // The REST Countries API performs fuzzy matching and may return results 
+            // that do not include the actual query string. We filter the API response 
+            // client-side to ensure only items whose names contain the normalized query 
+            // are shown in the dropdown.
+            .filter(item =>
+                normalizeString(item.name).includes(normalizedQuery)
+            )
 
         cache.set(normalizedQuery, {
             timestamp: Date.now(),
