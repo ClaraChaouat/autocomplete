@@ -9,7 +9,7 @@ import { getKeyDownHandler } from '../helpers/listNavigationHandler'
 import { highlightTextMatch } from '../helpers/highlightTextMatch'
 
 const Autocomplete: FC<AutocompleteProps> = ({
-    placeholder = 'Search...',
+    placeholder,
     onSelect,
     maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS
 }) => {
