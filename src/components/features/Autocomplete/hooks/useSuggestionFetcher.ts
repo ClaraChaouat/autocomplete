@@ -20,6 +20,7 @@ const initialState: FetchState = {
 interface UseSuggestionFetcherProps {
     query: string
     maxSuggestions?: number
+    justSelected?: boolean
 }
 
 export const useSuggestionFetcher = ({
@@ -29,6 +30,7 @@ export const useSuggestionFetcher = ({
     const [state, setState] = useState<FetchState>(initialState)
 
     const fetchSuggestions = useCallback(async () => {
+
         const trimmedQuery = query.trim()
 
         const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(trimmedQuery)
@@ -49,12 +51,12 @@ export const useSuggestionFetcher = ({
                     prev.suggestions.every((item, i) => item.name === nextSuggestions[i].name)
 
                 return areSame
-                    ? { ...prev, isLoading: false, error: null, isOpen: nextSuggestions.length > 0 }
+                    ? { ...prev, isLoading: false, error: null, isOpen: true }
                     : {
                         suggestions: nextSuggestions,
                         isLoading: false,
                         error: null,
-                        isOpen: nextSuggestions.length > 0
+                        isOpen: true
                     }
             })
 
