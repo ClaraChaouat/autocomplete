@@ -17,6 +17,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
     const inputRef = useRef<HTMLInputElement>(null)
 
     const [inputValue, setInputValue] = useState('')
+    const [inputError, setInputError] = useState<string | null>(null)
     const [activeIndex, setActiveIndex] = useState(-1)
 
     const {
@@ -74,13 +75,30 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     ref={inputRef}
                     type="text"
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={(e) => {
+                        const raw = e.target.value
+                        const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(raw)
+
+                        if (!isValid) {
+                            setInputError('Invalid input -  only letters, spaces, apostrophes, and hyphens are allowed.')
+                            return
+                        }
+
+                        setInputError(null)
+                        setInputValue(raw.trimStart())
+                    }}
                     onKeyDown={handleKeyDown}
                     placeholder={placeholder}
                     className={styles.input}
                     aria-expanded={isOpen}
                     role="combobox"
                 />
+
+                {inputError && (
+                    <div className={styles.error} role="alert">
+                        {inputError}
+                    </div>
+                )}
 
                 {isOpen && (
                     <ul className={styles.suggestionsList} role="listbox">
