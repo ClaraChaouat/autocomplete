@@ -1,12 +1,14 @@
 import type { FC } from 'react'
 import { useState, useRef, useCallback } from 'react'
 import styles from './Autocomplete.module.css'
-import type { AutocompleteProps, SuggestionItem } from '../types'
-import { useOnClickOutside } from '../hooks/useOnClickOutside'
-import { useSuggestionFetcher } from '../hooks/useSuggestionFetcher'
-import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteConstants'
-import { getKeyDownHandler } from '../helpers/listNavigationHandler'
-import { highlightTextMatch } from '../helpers/highlightTextMatch'
+import type { AutocompleteProps, SuggestionItem } from './types'
+import { useOnClickOutside } from './hooks/useOnClickOutside'
+import { useSuggestionFetcher } from './hooks/useSuggestionFetcher'
+import { AUTOCOMPLETE_CONFIG } from './constants/autocompleteConstants'
+import { getKeyDownHandler } from './helpers/listNavigationHandler'
+import { highlightTextMatch } from './helpers/highlightTextMatch'
+import LoadingIndicator from '../../common/LoadingIndicator'
+import ErrorMessage from '../../common/ErrorMessage'
 
 const Autocomplete: FC<AutocompleteProps> = ({
     placeholder,
@@ -69,7 +71,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
         <div className={styles.container} ref={containerRef}>
             <div className={styles.statusRow}>
                 <div className={styles.loadingSlot}>
-                    {isLoading && <span>Loading...</span>}
+                    {isLoading && < LoadingIndicator />}
                 </div>
             </div>
 
@@ -113,11 +115,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                 )}
             </div>
 
-            <div className={styles.statusRow}>
-                <div className={styles.error} role="alert">
-                    {inputError || error || '\u00A0'}
-                </div>
-            </div>
+            <ErrorMessage message={inputError || error} />
         </div>
     )
 
