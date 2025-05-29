@@ -19,7 +19,8 @@ export const useSuggestionFetcher = ({
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
-        if (query.length < AUTOCOMPLETE_CONFIG.MIN_SEARCH_LENGTH) {
+        const trimmedQuery = query.trim()
+        if (trimmedQuery.length < AUTOCOMPLETE_CONFIG.MIN_SEARCH_LENGTH) {
             setSuggestions([])
             setIsOpen(false)
             setIsLoading(false)
@@ -31,7 +32,7 @@ export const useSuggestionFetcher = ({
             setError(null)
 
             try {
-                const results = await getSuggestions(query)
+                const results = await getSuggestions(trimmedQuery)
                 setSuggestions(results.slice(0, maxSuggestions))
                 setIsOpen(true)
             } catch (err) {
