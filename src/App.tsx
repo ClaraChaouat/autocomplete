@@ -1,6 +1,6 @@
-import type { SuggestionItem } from './types'
+import type { SuggestionItem } from './components/features/Autocomplete/types'
 import type { FC } from 'react'
-import Autocomplete from './components/Autocomplete'
+import Autocomplete from './components/features/Autocomplete/Autocomplete'
 import styles from './App.module.css'
 
 const App: FC = () => {
