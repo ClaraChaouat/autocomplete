@@ -62,6 +62,10 @@ export const getSuggestions = async (query: string): Promise<SuggestionItem[]> =
 
         clearTimeout(timeoutId)
 
+        if (response.status === 404) {
+            return []
+        }
+
         if (!response.ok) {
             throw new ApiError(response.status, `API request failed with status ${response.status}`)
         }
