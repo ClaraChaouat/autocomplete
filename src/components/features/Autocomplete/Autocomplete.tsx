@@ -31,7 +31,6 @@ const Autocomplete: FC<AutocompleteProps> = ({
     const {
         suggestions,
         isLoading,
-        error,
         isOpen,
         setIsOpen
     } = useSuggestionFetcher({ query: inputValue, maxSuggestions, justSelected })
