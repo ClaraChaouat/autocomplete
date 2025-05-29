@@ -32,14 +32,14 @@ const SearchField: React.FC<SearchFieldProps> = ({
             aria-describedby={error ? "input-error" : undefined}
             aria-label={placeholder}
         />
-        {error && (
+        {/* {error && (
             <div
                 id="input-error"
                 style={{ color: 'var(--color-error)', fontSize: '0.9em', marginTop: 4 }}
             >
                 {error}
             </div>
-        )}
+        )} */}
     </div>
 )
 
