@@ -10,38 +10,84 @@ interface CountryResponseItem {
     }
 }
 
-const cache: Record<string, SuggestionItem[]> = {}
+class ApiError extends Error {
+    status: number
+    constructor(status: number, message: string) {
+        super(message)
+        this.name = 'ApiError'
+        this.status = status
+    }
+}
 
+interface CacheItem {
+    timestamp: number
+    data: SuggestionItem[]
+}
+
+const CACHE_DURATION = 5 * 60 * 1000
+const cache = new Map<string, CacheItem>()
+
+const isCacheValid = (item: CacheItem): boolean =>
+    Date.now() - item.timestamp < CACHE_DURATION
+
+const normalizeString = (str: string): string => str.toLowerCase().trim()
 
 export const getSuggestions = async (query: string): Promise<SuggestionItem[]> => {
-    const normalizedQuery = query.toLowerCase().trim()
+    const normalizedQuery = normalizeString(query)
     if (!normalizedQuery) return []
 
-
-    if (cache[normalizedQuery]) return cache[normalizedQuery]
+    const cached = cache.get(normalizedQuery)
+    if (cached && isCacheValid(cached)) {
+        return cached.data
+    }
 
     if (USE_MOCK) {
-        const filtered = mockData.filter(item =>
-            item.name.toLowerCase().includes(normalizedQuery)
+        const results = mockData.filter(item =>
+            normalizeString(item.name).includes(normalizedQuery)
         )
-        cache[normalizedQuery] = filtered
-        return filtered
+        cache.set(normalizedQuery, {
+            timestamp: Date.now(),
+            data: results
+        })
+        return results
     }
 
     try {
-        const response = await fetch(`${REST_COUNTRIES_API_URL}${normalizedQuery}`)
-        if (!response.ok) throw new Error(`API request failed with status ${response.status}`)
-        const data: CountryResponseItem[] = await response.json()
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
 
+        const response = await fetch(`${REST_COUNTRIES_API_URL}${encodeURIComponent(normalizedQuery)}`, {
+            signal: controller.signal
+        })
+
+        clearTimeout(timeoutId)
+
+        if (!response.ok) {
+            throw new ApiError(response.status, `API request failed with status ${response.status}`)
+        }
+
+        const data: CountryResponseItem[] = await response.json()
         const results = data.map((country, index) => ({
             id: index,
             name: country.name.common
         }))
 
-        cache[normalizedQuery] = results
+        cache.set(normalizedQuery, {
+            timestamp: Date.now(),
+            data: results
+        })
+
         return results
-    } catch (error) {
-        console.error('API error:', error)
-        throw error
+    } catch (error: unknown) {
+        if (error instanceof ApiError) {
+            console.error(`API Error (${error.status}):`, error.message)
+            throw error
+        } else if (error instanceof Error && error.name === 'AbortError') {
+            console.error('Request timed out')
+            throw new Error('Request timed out after 5 seconds')
+        } else {
+            console.error('Unexpected error:', error)
+            throw new Error('Failed to fetch suggestions')
+        }
     }
 }
