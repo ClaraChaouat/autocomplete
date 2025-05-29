@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './SearchField.module.css'
+
 interface SearchFieldProps {
     value: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -32,16 +33,14 @@ const SearchField: React.FC<SearchFieldProps> = ({
             aria-describedby={error ? "input-error" : undefined}
             aria-label={placeholder}
         />
-        {error && (
-            <div
-                id="input-error"
-                className={styles.errorMessage}
-                role="alert"
-            >
-                {error}
-            </div>
-        )}
-    </div >
+        <div
+            id="input-error"
+            className={styles.errorMessage}
+            role="alert"
+        >
+            {error || '\u00A0'}
+        </div>
+    </div>
 )
 
 export default SearchField
