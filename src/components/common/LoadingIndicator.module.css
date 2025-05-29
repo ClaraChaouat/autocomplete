@@ -1,0 +1,17 @@
+import styles from './LoadingIndicator.module.css'
+
+
+
+.statusRow {
+  height: 20px;
+}
+
+.loadingSlot {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-muted, #666);
+  line-height: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}

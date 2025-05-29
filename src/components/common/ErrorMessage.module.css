@@ -1,0 +1,9 @@
+.statusRow {
+  height: 20px;
+}
+
+.error {
+  color: var(--color-error, #ff3b30);
+  font-size: var(--font-size-sm, 0.875rem);
+  margin-top: var(--spacing-xs, 0.25rem);
+}

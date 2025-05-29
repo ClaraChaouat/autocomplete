@@ -1,5 +1,4 @@
-import styles from '../features/Autocomplete/Autocomplete.module.css'
-
+import styles from './ErrorMessage.module.css'
 interface ErrorMessageProps {
     message: string | null
 }
