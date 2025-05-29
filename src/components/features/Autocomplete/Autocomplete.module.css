@@ -12,7 +12,6 @@
   height: 20px;
 }
 
-
 .loadingSlot {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
@@ -73,12 +72,12 @@
   margin-top: var(--spacing-xs);
 }
 
-.noResults {
+/* .noResults {
   padding: var(--spacing-sm) var(--spacing-md);
   color: var(--color-text-disabled);
   font-style: italic;
   cursor: default;
-}
+} */
 
 .highlight {
   background-color: var(--color-highlight);
