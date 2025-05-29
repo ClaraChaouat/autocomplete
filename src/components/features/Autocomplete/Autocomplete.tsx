@@ -7,7 +7,6 @@ import { useSuggestionFetcher } from './hooks/useSuggestionFetcher'
 import { AUTOCOMPLETE_CONFIG } from './constants/autocompleteConstants'
 import { getKeyDownHandler } from './helpers/listNavigationHandler'
 import LoadingIndicator from '../../common/LoadingIndicator'
-import ErrorMessage from '../../common/ErrorMessage'
 import SearchField from './components/SearchField'
 import MenuItem from './components/MenuItem'
 import NoResult from './components/NoResults'
@@ -120,7 +119,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
 
             </div>
 
-            <ErrorMessage message={inputError || error} />
+
         </div>
     )
 
