@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { SuggestionItem } from '../types'
 import { getSuggestions } from '../utils/getSuggestions'
-import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteVariables'
+import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteConstants'
 
 interface UseSuggestionFetcherProps {
     query: string

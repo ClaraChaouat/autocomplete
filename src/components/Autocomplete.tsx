@@ -4,7 +4,7 @@ import styles from './Autocomplete.module.css'
 import type { AutocompleteProps, SuggestionItem } from '../types'
 import { useOnClickOutside } from '../hooks/useOnClickOutside'
 import { useSuggestionFetcher } from '../hooks/useSuggestionFetcher'
-import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteVariables'
+import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteConstants'
 import { getKeyDownHandler } from '../helpers/listNavigationHandler'
 import { highlightTextMatch } from '../helpers/highlightTextMatch'
 

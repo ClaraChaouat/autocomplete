@@ -1,8 +1,9 @@
 import type { SuggestionItem } from './types'
+import type { FC } from 'react'
 import Autocomplete from './components/Autocomplete'
 import styles from './App.module.css'
 
-const App = () => {
+const App: FC = () => {
   const handleSelect = (item: SuggestionItem) => {
     console.log('Selected:', item)
   }
