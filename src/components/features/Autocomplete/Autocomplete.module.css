@@ -72,13 +72,6 @@
   margin-top: var(--spacing-xs);
 }
 
-/* .noResults {
-  padding: var(--spacing-sm) var(--spacing-md);
-  color: var(--color-text-disabled);
-  font-style: italic;
-  cursor: default;
-} */
-
 .highlight {
   background-color: var(--color-highlight);
   padding: 0;
