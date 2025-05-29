@@ -1,4 +1,4 @@
-import styles from '../features/Autocomplete/Autocomplete.module.css'
+import styles from './LoadingIndicator.module.css'
 
 const LoadingIndicator = () => (
     <div className={styles.statusRow}>

@@ -1,14 +1,19 @@
 import type { FC } from 'react'
 import { useState, useRef, useCallback } from 'react'
 import styles from './Autocomplete.module.css'
-import type { AutocompleteProps, SuggestionItem } from './types'
+import type { AutocompleteProps } from './types'
 import { useOnClickOutside } from './hooks/useOnClickOutside'
 import { useSuggestionFetcher } from './hooks/useSuggestionFetcher'
 import { AUTOCOMPLETE_CONFIG } from './constants/autocompleteConstants'
 import { getKeyDownHandler } from './helpers/listNavigationHandler'
-import { highlightTextMatch } from './helpers/highlightTextMatch'
 import LoadingIndicator from '../../common/LoadingIndicator'
 import ErrorMessage from '../../common/ErrorMessage'
+import SearchField from './components/SearchField'
+import MenuItem from './components/MenuItem'
+import NoResult from './components/NoResults'
+import HighlightedText from '../../common/HighlightedText'
+
+
 
 const Autocomplete: FC<AutocompleteProps> = ({
     placeholder,
@@ -49,26 +54,6 @@ const Autocomplete: FC<AutocompleteProps> = ({
 
     useOnClickOutside(containerRef, closeDropdown)
 
-    const renderSuggestionItem = (
-        item: SuggestionItem,
-        index: number
-    ) => (
-        <li
-            key={item.id}
-            role="option"
-            aria-selected={index === activeIndex}
-            className={`${styles.suggestionItem} ${index === activeIndex ? styles.active : ''}`}
-            onClick={() => {
-                setInputValue(item.name)
-                onSelect(item)
-                setIsOpen(false)
-                setJustSelected(true)
-
-            }}
-        >
-            {highlightTextMatch(item.name, inputValue, styles.highlight)}
-        </li>
-    )
 
 
     return (
@@ -80,43 +65,59 @@ const Autocomplete: FC<AutocompleteProps> = ({
             </div>
 
             <div className={styles.inputWrapper}>
-                <input
-                    ref={inputRef}
-                    type="text"
+
+                <SearchField
                     value={inputValue}
                     onChange={(e) => {
                         const raw = e.target.value
                         const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(raw)
-
                         if (!isValid) {
                             setInputError('Invalid input – only letters, spaces, apostrophes, and hyphens are allowed.')
                         } else {
                             setInputError(null)
                         }
-
                         setInputValue(raw.trimStart())
                     }}
                     onKeyDown={handleKeyDown}
+                    inputRef={inputRef}
                     placeholder={placeholder}
+                    error={inputError}
                     className={styles.input}
-                    aria-expanded={isOpen}
-                    role="combobox"
-                    aria-autocomplete="list"
-                    aria-controls="autocomplete-listbox"
-                    aria-activedescendant={activeIndex >= 0 ? `option-${activeIndex}` : undefined}
                 />
 
+
+
+
                 {isOpen && (
-                    <ul className={styles.suggestionsList} role="listbox">
+                    <ul className={styles.suggestionsList} role="listbox" id="autocomplete-listbox">
                         {suggestions.length > 0 ? (
-                            suggestions.map((item, index) => renderSuggestionItem(item, index))
+                            suggestions.map((item, index) => (
+                                <MenuItem
+                                    key={item.id}
+                                    item={item}
+                                    isActive={index === activeIndex}
+                                    onClick={() => {
+                                        setInputValue(item.name)
+                                        onSelect(item)
+                                        setIsOpen(false)
+                                        setJustSelected(true)
+                                    }}
+                                    className={`${styles.suggestionItem} ${index === activeIndex ? styles.active : ''}`}
+                                >
+                                    <HighlightedText
+                                        text={item.name}
+                                        query={inputValue}
+                                        highlightClassName={styles.highlight}
+                                    />
+                                </MenuItem>
+                            ))
                         ) : (
-                            <li className={styles.noResults} role="option" aria-disabled="true">
-                                No results found
-                            </li>
+                            <NoResult className={styles.noResults} />
+
                         )}
                     </ul>
                 )}
+
             </div>
 
             <ErrorMessage message={inputError || error} />
