@@ -21,6 +21,8 @@ const Autocomplete: FC<AutocompleteProps> = ({
     const [inputValue, setInputValue] = useState('')
     const [inputError, setInputError] = useState<string | null>(null)
     const [activeIndex, setActiveIndex] = useState(-1)
+    const [justSelected, setJustSelected] = useState(false)
+
 
     const {
         suggestions,
@@ -28,7 +30,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
         error,
         isOpen,
         setIsOpen
-    } = useSuggestionFetcher({ query: inputValue, maxSuggestions })
+    } = useSuggestionFetcher({ query: inputValue, maxSuggestions, justSelected })
 
     const handleKeyDown = getKeyDownHandler({
         isOpen,
@@ -60,6 +62,8 @@ const Autocomplete: FC<AutocompleteProps> = ({
                 setInputValue(item.name)
                 onSelect(item)
                 setIsOpen(false)
+                setJustSelected(true)
+
             }}
         >
             {highlightTextMatch(item.name, inputValue, styles.highlight)}
