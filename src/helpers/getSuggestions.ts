@@ -1,5 +1,5 @@
 import { mockData } from '../api/mockData'
-import { SuggestionItem } from '../components/features/Autocomplete/types'
+import { SuggestionItem } from '../types/suggestion'
 
 const USE_MOCK = false
 const REST_COUNTRIES_API_URL = 'https://restcountries.com/v3.1/name/'

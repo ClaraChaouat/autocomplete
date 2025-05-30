@@ -1,99 +1,46 @@
 import type { FC } from 'react'
-import { useState, useRef, useCallback } from 'react'
 import styles from './Autocomplete.module.css'
 import NoResult from '../NoResults/NoResults'
 import MenuItem from '../MenuItem/MenuItem'
 import HighlightedText from '../HighlightedText/HighlightedText'
 import SearchField from '../SearchField/SearchField'
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator'
-import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { getKeyDownHandler } from '../../helpers/listNavigationHandler'
-import { useSuggestionFetcher } from '../../hooks/useSuggestionFetcher'
-import { AUTOCOMPLETE_CONFIG } from '../../constants/autocompleteConstants'
 import { AutocompleteProps } from '../../types/suggestion'
 
 
-
 const Autocomplete: FC<AutocompleteProps> = ({
-    placeholder,
+    value,
+    suggestions,
+    isOpen,
+    isLoading,
+    error,
+    onChange,
+    onKeyDown,
     onSelect,
-    maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS,
-    ariaLabel
+    inputRef,
+    activeIndex,
+    placeholder,
+    ariaLabel,
 }) => {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
-
-    const [inputValue, setInputValue] = useState('')
-    const [inputError, setInputError] = useState<string | null>(null)
-    const [activeIndex, setActiveIndex] = useState(-1)
-    const [justSelected, setJustSelected] = useState(false) //justSelected state to prevent immediate re-fetching when selecting a suggestion
-
-
-
-    const {
-        suggestions,
-        isLoading,
-        error,
-        isOpen,
-        setIsOpen
-    } = useSuggestionFetcher({ query: inputValue, maxSuggestions, justSelected })
-
-    const handleKeyDown = getKeyDownHandler({
-        isOpen,
-        suggestions,
-        activeIndex,
-        setActiveIndex,
-        onSelect,
-        setIsOpen,
-        setInputValue
-    })
-
-    const closeDropdown = useCallback(() => {
-        setIsOpen(false)
-        setActiveIndex(-1)
-    }, [setIsOpen])
-
-    useOnClickOutside(containerRef, closeDropdown)
-
-
-
     return (
-        <div className={styles.container} ref={containerRef}>
+        <div className={styles.container}>
             <div className={styles.statusRow}>
                 <div className={styles.loadingSlot}>
-                    {isLoading && < LoadingIndicator />}
+                    {isLoading && <LoadingIndicator />}
                 </div>
             </div>
 
             <div className={styles.inputWrapper}>
-
                 <SearchField
-                    value={inputValue}
-                    onChange={(e) => {
-                        const raw = e.target.value
-                        const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(raw)
-                        if (!isValid) {
-                            setInputError('Invalid input – only letters, spaces, apostrophes, and hyphens are allowed.')
-                        } else {
-                            setInputError(null)
-                        }
-                        setInputValue(raw.trimStart())
-                        setJustSelected(false) //
-                    }}
-                    onKeyDown={(e) => {
-                        setJustSelected(true)
-                        handleKeyDown(e)
-
-                    }}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    onKeyDown={onKeyDown}
                     inputRef={inputRef}
                     placeholder={placeholder}
-                    aria-label={ariaLabel}
-                    error={inputError ?? (error ? `Server error: ${error}` : null)}
+                    ariaLabel={ariaLabel}
+                    error={error}
                     className={styles.input}
                 />
-
-
-
 
                 {isOpen && (
                     <ul className={styles.suggestionsList} role="listbox" id="autocomplete-listbox">
@@ -103,34 +50,24 @@ const Autocomplete: FC<AutocompleteProps> = ({
                                     key={item.id}
                                     item={item}
                                     isActive={index === activeIndex}
-                                    onClick={() => {
-                                        setInputValue(item.name)
-                                        onSelect(item)
-                                        setIsOpen(false)
-                                        setJustSelected(true)
-                                    }}
+                                    onClick={() => onSelect(item)}
                                     className={`${styles.suggestionItem} ${index === activeIndex ? styles.active : ''}`}
                                 >
                                     <HighlightedText
                                         text={item.name}
-                                        query={inputValue}
+                                        query={value}
                                         highlightClassName={styles.highlight}
                                     />
                                 </MenuItem>
                             ))
                         ) : (
                             <NoResult className={styles.noResults} />
-
                         )}
                     </ul>
                 )}
-
             </div>
-
-
         </div>
-    )
-
-}
+    );
+};
 
 export default Autocomplete
