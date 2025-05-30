@@ -21,7 +21,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         id={`option-${item.id}`}
         role="option"
         aria-selected={isActive}
-        className={`${className || ''} ${isActive ? 'active' : ''}`}
+        className={className}
         onClick={onClick}
     >
         {children || item.name}
