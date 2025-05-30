@@ -62,7 +62,7 @@
   cursor: pointer;
 }
 
-.suggestionItem.active {
+.suggestionItem.active[aria-selected="true"] {
   background-color: var(--color-background-active);
 }
 
