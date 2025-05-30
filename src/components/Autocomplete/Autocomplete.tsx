@@ -40,6 +40,9 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     ariaLabel={ariaLabel}
                     error={error}
                     className={styles.input}
+                    isOpen={isOpen}
+                    activeIndex={activeIndex}
+                    suggestions={suggestions}
                 />
 
                 {isOpen && (

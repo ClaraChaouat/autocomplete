@@ -10,6 +10,10 @@ interface SearchFieldProps {
     ariaLabel?: string
     error?: string | null
     className?: string
+    isOpen?: boolean
+    suggestions: Array<{ id: number; name: string }>;
+    activeIndex: number
+
 }
 
 const SearchField: React.FC<SearchFieldProps> = ({
@@ -20,7 +24,10 @@ const SearchField: React.FC<SearchFieldProps> = ({
     placeholder,
     ariaLabel,
     error,
-    className
+    className,
+    isOpen,
+    suggestions,
+    activeIndex
 }) => {
     const id = useId()
     const errorId = `${id}-error`
@@ -35,9 +42,16 @@ const SearchField: React.FC<SearchFieldProps> = ({
                 onKeyDown={onKeyDown}
                 placeholder={placeholder}
                 className={className}
+                aria-label={ariaLabel}
                 aria-invalid={!!error}
                 aria-describedby={error ? errorId : undefined}
-                aria-label={ariaLabel} />
+                aria-autocomplete="list"
+                aria-controls="autocomplete-listbox"
+                aria-activedescendant={
+                    isOpen && activeIndex >= 0 ? `option-${suggestions[activeIndex]?.id}` : undefined
+                }
+                role="combobox"
+                aria-expanded={isOpen} />
             <div
                 id={errorId}
                 className={styles.errorMessage}
