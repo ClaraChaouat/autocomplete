@@ -1,12 +1,12 @@
 
 import { renderHook, act, waitFor } from '@testing-library/react'
 import { useSuggestionFetcher } from './useSuggestionFetcher'
+import { getSuggestions } from '../helpers/getSuggestions'
 
 jest.mock('../utils/getSuggestions', () => ({
     getSuggestions: jest.fn(),
 }))
 
-import { getSuggestions } from '../utils/getSuggestions'
 
 
 jest.useFakeTimers()
