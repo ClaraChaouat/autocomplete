@@ -1,5 +1,5 @@
 import type { KeyboardEvent } from 'react'
-import type { SuggestionItem } from '../components/features/Autocomplete/types'
+import { SuggestionItem } from '../types/suggestion'
 
 interface KeyDownHandlerParams {
     isOpen: boolean

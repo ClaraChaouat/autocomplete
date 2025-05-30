@@ -4,8 +4,8 @@ import styles from './SearchField.module.css'
 interface SearchFieldProps {
     value: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
-    inputRef?: React.Ref<HTMLInputElement>
+    onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
+    inputRef: React.RefObject<HTMLInputElement | null>
     placeholder?: string
     ariaLabel?: string
     error?: string | null
