@@ -10,7 +10,7 @@ import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 import { AutocompleteProps, SuggestionItem } from "../../types/suggestion";
 
-const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
+export const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
   (
     {
       value,
@@ -27,7 +27,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
       ariaLabel,
       label,
     },
-    outerRef,
+    outerRef
   ) => {
     return (
       <div ref={outerRef} className={styles.container}>
@@ -91,7 +91,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
         </div>
       </div>
     );
-  },
+  }
 );
 
 export default Autocomplete;

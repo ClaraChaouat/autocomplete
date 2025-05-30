@@ -1,5 +1,5 @@
+import { SuggestionItem } from "../types/suggestion";
 import { getKeyDownHandler } from "./listNavigationHandler";
-import type { SuggestionItem } from "../components/features/Autocomplete/types";
 
 const suggestions: SuggestionItem[] = [
   { id: 1, name: "France" },
