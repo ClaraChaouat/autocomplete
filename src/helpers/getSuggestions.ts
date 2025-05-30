@@ -2,8 +2,8 @@ import { mockData } from '../api/mockData'
 import { SuggestionItem } from '../types/suggestion'
 
 const USE_MOCK = false
-const REST_COUNTRIES_API_URL = 'https://restcountries.com/v3.1/name/'
-// const REST_COUNTRIES_API_URL = 'https://restcountries-BROKEN.com/v3.1/name/';
+// const REST_COUNTRIES_API_URL = 'https://restcountries.com/v3.1/name/'
+const REST_COUNTRIES_API_URL = 'https://restcountries-BROKEN.com/v3.1/name/';
 
 
 interface CountryResponseItem {
