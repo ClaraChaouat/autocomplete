@@ -1,4 +1,4 @@
-import { mockData } from '../data/mockData'
+import { mockData } from '../../../../api/mockData'
 import type { SuggestionItem } from '../types'
 
 const USE_MOCK = false

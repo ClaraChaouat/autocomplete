@@ -1,4 +1,4 @@
-import type { SuggestionItem } from '../types';
+import type { SuggestionItem } from '../components/features/Autocomplete/types';
 
 export const mockData: SuggestionItem[] = [
     { id: 1, name: 'Spain' },
