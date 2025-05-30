@@ -7,17 +7,14 @@
   gap: var(--spacing-xs);
 }
 
-
 .statusRow {
   height: 20px;
 }
-
 
 .inputWrapper {
   position: relative;
   width: 100%;
 }
-
 
 .input {
   width: 93.5%;
@@ -29,7 +26,6 @@
   background-color: var(--color-background);
   color: var(--color-text);
 }
-
 
 .suggestionsList {
   position: absolute;
@@ -56,5 +52,3 @@
 .suggestionItem.active[aria-selected="true"] {
   background-color: var(--color-background-active);
 }
-
-

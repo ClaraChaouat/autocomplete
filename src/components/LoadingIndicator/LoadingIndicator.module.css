@@ -1,8 +1,6 @@
-
-
 .loadingSlot {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted); 
+  color: var(--color-text-muted);
   line-height: 1;
   height: 100%;
   display: flex;
