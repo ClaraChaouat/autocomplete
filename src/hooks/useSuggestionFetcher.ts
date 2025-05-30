@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import type { SuggestionItem } from '../types'
-import { getSuggestions } from '../utils/getSuggestions'
+import { getSuggestions } from '../helpers/getSuggestions'
 import { AUTOCOMPLETE_CONFIG } from '../constants/autocompleteConstants'
+import { SuggestionItem } from '../types/autocomplete'
 
 interface FetchState {
     suggestions: SuggestionItem[]

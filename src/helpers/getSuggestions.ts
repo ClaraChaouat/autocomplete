@@ -1,8 +1,10 @@
-import { mockData } from '../../../../api/mockData'
-import type { SuggestionItem } from '../types'
+import { mockData } from '../api/mockData'
+import { SuggestionItem } from '../components/features/Autocomplete/types'
 
 const USE_MOCK = false
 const REST_COUNTRIES_API_URL = 'https://restcountries.com/v3.1/name/'
+// const REST_COUNTRIES_API_URL = 'https://restcountries-BROKEN.com/v3.1/name/';
+
 
 interface CountryResponseItem {
     name: {
