@@ -1,14 +1,13 @@
- # Autocomplete Component Project
+# Autocomplete Component Project - Part 1
 
 The goal of this project is to implement an autocomplete React component.
 
-For this project, we should focus on performace and user experience. 
+For this project, we should focus on performace and user experience.
 
 ## Expected behaviour
 
 - When the user starts typing in the search input, It should show some country names sugeestions.
 - While the user typing, the matching part of the text should be highlighted.
-
 
 All the following edge cases are implemented:
 
@@ -33,7 +32,6 @@ All the following edge cases are implemented:
                     | Loading state clarity             | ✔️ loading slot rendered                         |
                     | Selected item validation          | ✔️ only known suggestions can be selected        |
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -42,7 +40,9 @@ All the following edge cases are implemented:
 - npm or yarn
 
 ### Installation
+
 1. Clone the repository
+
 ```bash
 git clone https://github.com/ClaraChaouat/autocomplete.git
 cd autocomplete-deel
@@ -68,14 +68,13 @@ You can switch between modes by changing the `USE_MOCK` constant in:
 
 <!-- Toggle between mock and real API -->
 
-```const USE_MOCK = true```  <!--  ← use mockData from /data/mockData.ts -->
+`const USE_MOCK = true` <!--  ← use mockData from /data/mockData.ts -->
 
-```const USE_MOCK = false```  <!-- ← use REST API for country search -->
+`const USE_MOCK = false` <!-- ← use REST API for country search -->
 
 Use true for offline/demo usage
 
 Use false for real data via REST Countries
-
 
 ## Running tests
 
@@ -85,16 +84,8 @@ This project uses **Jest** and **React Testing Library** for unit and integratio
 
 Make sure dependencies are installed:
 
-`
-npm install ` or `yarn install`
+`npm install` or `yarn install`
 
 Then
 
-` npm test `
-
-
-
-
-
-
-
+`npm test`
