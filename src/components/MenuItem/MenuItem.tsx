@@ -1,5 +1,5 @@
 import React from 'react'
-import type { SuggestionItem } from '../types'
+import { SuggestionItem } from '../../types/suggestion'
 
 interface MenuItemProps {
     item: SuggestionItem
