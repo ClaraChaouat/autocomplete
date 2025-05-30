@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId } from 'react'
 import styles from './SearchField.module.css'
 
 interface SearchFieldProps {
@@ -7,6 +7,7 @@ interface SearchFieldProps {
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
     inputRef?: React.Ref<HTMLInputElement>
     placeholder?: string
+    ariaLabel?: string
     error?: string | null
     className?: string
 }
@@ -17,30 +18,35 @@ const SearchField: React.FC<SearchFieldProps> = ({
     onKeyDown,
     inputRef,
     placeholder,
+    ariaLabel,
     error,
     className
-}) => (
-    <div>
-        <input
-            ref={inputRef}
-            type="text"
-            value={value}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-            placeholder={placeholder}
-            className={className}
-            aria-invalid={!!error}
-            aria-describedby={error ? "input-error" : undefined}
-            aria-label={placeholder}
-        />
-        <div
-            id="input-error"
-            className={styles.errorMessage}
-            role="alert"
-        >
-            {error || '\u00A0'}
+}) => {
+    const id = useId()
+    const errorId = `${id}-error`
+
+    return (
+        <div>
+            <input
+                ref={inputRef}
+                type="text"
+                value={value}
+                onChange={onChange}
+                onKeyDown={onKeyDown}
+                placeholder={placeholder}
+                className={className}
+                aria-invalid={!!error}
+                aria-describedby={error ? errorId : undefined}
+                aria-label={ariaLabel} />
+            <div
+                id={errorId}
+                className={styles.errorMessage}
+                role="alert"
+            >
+                {error || '\u00A0'}
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
 export default SearchField

@@ -17,7 +17,8 @@ import HighlightedText from '../../common/HighlightedText'
 const Autocomplete: FC<AutocompleteProps> = ({
     placeholder,
     onSelect,
-    maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS
+    maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS,
+    ariaLabel
 }) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -84,6 +85,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     }}
                     inputRef={inputRef}
                     placeholder={placeholder}
+                    aria-label={ariaLabel}
                     error={inputError}
                     className={styles.input}
                 />
