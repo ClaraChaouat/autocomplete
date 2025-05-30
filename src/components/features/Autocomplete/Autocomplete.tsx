@@ -25,7 +25,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
     const [inputValue, setInputValue] = useState('')
     const [inputError, setInputError] = useState<string | null>(null)
     const [activeIndex, setActiveIndex] = useState(-1)
-    const [justSelected, setJustSelected] = useState(false)
+    const [justSelected, setJustSelected] = useState(false) //justSelected state to prevent immediate re-fetching when selecting an item
 
 
     const {
@@ -75,7 +75,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                             setInputError(null)
                         }
                         setInputValue(raw.trimStart())
-                        setJustSelected(false)
+                        setJustSelected(false) //
                     }}
                     onKeyDown={(e) => {
                         setJustSelected(true)
