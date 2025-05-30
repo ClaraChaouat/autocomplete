@@ -1,39 +1,43 @@
- Autocomplete Component Project
+ # Autocomplete Component Project
 
-A React TypeScript implementation of an autocomplete component with async search functionality.
+The goal of this project is to implement an autocomplete React component.
 
-This is an autocomplete React component. 
+For this project, we should focus on performace and user experience. 
 
-When the user starts typing in the search input country names should show on a dropdowm menu.
+## Expected behaviour
 
-all the following edge cases are implemented:
+- When the user starts typing in the search input, It should show some country names sugeestions.
+- While the user typing, the matching part of the text should be highlighted.
 
-| Edge Case                         | Status                                           |
-| --------------------------------- | ------------------------------------------------ |
-| Empty input                       | ✔️ handled (returns early)                       |
-| No results match                  | ✔️ shows “No results found”                      |
-| Click outside                     | ✔️ handled via `useOnClickOutside`               |
-| Escape key pressed                | ✔️ closes dropdown                               |
-| Enter key                         | ✔️ selects highlighted item + updates input      |
-| Tab key                           | ✔️ selects if highlighted + closes dropdown      |
-| User types fast                   | ✔️ debounced + cached + `AbortController`        |
-| Dropdown keyboard nav (↑/↓/Enter) | ✔️ handled with `activeIndex`                    |
-| Short queries                     | ✔️ length check in fetcher                       |
-| Case insensitivity                | ✔️ via `.toLowerCase().trim()`                   |
-| Mouse click on suggestion         | ✔️ updates input + closes dropdown               |
-| Item hover (keyboard highlight)   | ✔️ using `activeIndex`                           |
-| Prevent re-render of same results | ✔️ compares new vs previous suggestions          |
-| Component unmounted during fetch  | ✔️ cleanup + cancel logic in effect              |
-| Rapid typing / stale results      | ✔️ uses `AbortController` to discard old fetches |
-| Mobile tap outside input          | ✔️ handled by `useOnClickOutside`                |
-| Non-Latin characters / accents    | ✔️ accepted by regex (Latin-1), normalized       |
-| Loading state clarity             | ✔️ loading slot rendered                         |
-| Selected item validation          | ✔️ only known suggestions can be selected        |
+
+All the following edge cases are implemented:
+
+                    | Edge Case                         | Status                                           |
+                    | --------------------------------- | ------------------------------------------------ |
+                    | Empty input                       | ✔️ handled (returns early)                       |
+                    | No results match                  | ✔️ shows “No results found”                      |
+                    | Click outside                     | ✔️ handled via `useOnClickOutside`               |
+                    | Escape key pressed                | ✔️ closes dropdown                               |
+                    | Enter key                         | ✔️ selects highlighted item + updates input      |
+                    | Tab key                           | ✔️ selects if highlighted + closes dropdown      |
+                    | User types fast                   | ✔️ debounced + cached + `AbortController`        |
+                    | Dropdown keyboard nav (↑/↓/Enter) | ✔️ handled with `activeIndex`                    |
+                    | Short queries                     | ✔️ length check in fetcher                       |
+                    | Case insensitivity                | ✔️ via `.toLowerCase().trim()`                   |
+                    | Mouse click on suggestion         | ✔️ updates input + closes dropdown               |
+                    | Item hover (keyboard highlight)   | ✔️ using `activeIndex`                           |
+                    | Prevent re-render of same results | ✔️ compares new vs previous suggestions          |
+                    | Component unmounted during fetch  | ✔️ cleanup + cancel logic in effect              |
+                    | Rapid typing / stale results      | ✔️ uses `AbortController` to discard old fetches |               |
+                    | Non-Latin characters / accents    | ✔️ accepted by regex (Latin-1), normalized       |
+                    | Loading state clarity             | ✔️ loading slot rendered                         |
+                    | Selected item validation          | ✔️ only known suggestions can be selected        |
 
 
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 
@@ -45,21 +49,16 @@ cd autocomplete-deel
 ```
 
 2. Install dependencies
-```bash
-npm install
-# or
-yarn
-```
+
+`npm install` or `yarn install`
 
 3. Start the development server
-```bash
-npm run dev
-# or
-yarn dev
-```
+
+`npm run dev` or `yarn dev`
+
 The application will be available at `http://localhost:5173`
 
-### Switching Between Mock Data and Real API
+## Switching Between Mock Data and Real API
 
 The project supports both mock data (local JSON array) and real-time API fetching via REST Countries API.
 
@@ -78,8 +77,24 @@ Use true for offline/demo usage
 Use false for real data via REST Countries
 
 
+## Running tests
+
+This project uses **Jest** and **React Testing Library** for unit and integration tests.
+
+### Installation
+
+Make sure dependencies are installed:
+
+`
+npm install ` or `yarn install`
+
+Then
+
+` npm test `
 
 
 
 
-PS: no tests are implemented yet
+
+
+
