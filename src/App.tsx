@@ -1,6 +1,6 @@
-import type { FC } from 'react'
-import styles from './App.module.css'
-import CountrySelect from './features/CountrySelected'
+import type { FC } from "react";
+import styles from "./App.module.css";
+import CountrySelect from "./features/CountrySelected";
 
 const App: FC = () => {
   return (
@@ -8,7 +8,7 @@ const App: FC = () => {
       <h1 className={styles.title}>Autocomplete Demo</h1>
       <CountrySelect />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

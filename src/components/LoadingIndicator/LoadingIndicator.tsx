@@ -1,11 +1,11 @@
-import styles from './LoadingIndicator.module.css'
+import styles from "./LoadingIndicator.module.css";
 
 const LoadingIndicator = () => (
-    <div className={styles.statusRow}>
-        <div className={styles.loadingSlot}>
-            <span>Loading...</span>
-        </div>
+  <div className={styles.statusRow}>
+    <div className={styles.loadingSlot}>
+      <span>Loading...</span>
     </div>
-)
+  </div>
+);
 
-export default LoadingIndicator
+export default LoadingIndicator;
