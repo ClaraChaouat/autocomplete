@@ -56,7 +56,7 @@ describe('getKeyDownHandler', () => {
         handler(event)
         expect(event.preventDefault).toHaveBeenCalled()
         expect(setActiveIndex).toHaveBeenCalledWith(expect.any(Function))
-        // On peut tester la logique d’incrément si besoin
+
     })
 
     it('handles ArrowUp key', () => {
