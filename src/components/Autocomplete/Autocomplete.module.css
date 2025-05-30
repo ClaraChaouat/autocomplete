@@ -52,3 +52,11 @@
 .suggestionItem.active[aria-selected="true"] {
   background-color: var(--color-background-active);
 }
+
+.label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  color: var(--text-body);
+}

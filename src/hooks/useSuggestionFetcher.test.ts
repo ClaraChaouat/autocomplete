@@ -2,7 +2,7 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { useSuggestionFetcher } from "./useSuggestionFetcher";
 import { getSuggestions } from "../helpers/getSuggestions";
 
-jest.mock("../utils/getSuggestions", () => ({
+jest.mock("../helpers/getSuggestions", () => ({
   getSuggestions: jest.fn(),
 }));
 
@@ -61,7 +61,7 @@ describe("useSuggestionFetcher", () => {
 
   it("should reset state for invalid query", () => {
     const { result } = renderHook(() =>
-      useSuggestionFetcher({ query: "123!" }),
+      useSuggestionFetcher({ query: "123!" })
     );
     expect(result.current.suggestions).toEqual([]);
     expect(result.current.isLoading).toBe(false);
@@ -71,10 +71,10 @@ describe("useSuggestionFetcher", () => {
 
   it("should limit the number of suggestions by maxSuggestions", async () => {
     (getSuggestions as jest.Mock).mockResolvedValue(
-      Array.from({ length: 10 }, (_, i) => ({ id: i, name: `Item${i}` })),
+      Array.from({ length: 10 }, (_, i) => ({ id: i, name: `Item${i}` }))
     );
     const { result } = renderHook(() =>
-      useSuggestionFetcher({ query: "item", maxSuggestions: 5 }),
+      useSuggestionFetcher({ query: "item", maxSuggestions: 5 })
     );
 
     act(() => {
