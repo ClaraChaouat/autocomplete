@@ -12,15 +12,6 @@
   height: 20px;
 }
 
-.loadingSlot {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  line-height: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-} 
 
 .inputWrapper {
   position: relative;
@@ -65,6 +56,5 @@
 .suggestionItem.active[aria-selected="true"] {
   background-color: var(--color-background-active);
 }
-
 
 
