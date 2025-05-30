@@ -26,12 +26,14 @@ const Autocomplete: FC<AutocompleteProps> = ({
     const [inputValue, setInputValue] = useState('')
     const [inputError, setInputError] = useState<string | null>(null)
     const [activeIndex, setActiveIndex] = useState(-1)
-    const [justSelected, setJustSelected] = useState(false) //justSelected state to prevent immediate re-fetching when selecting an item
+    const [justSelected, setJustSelected] = useState(false) //justSelected state to prevent immediate re-fetching when selecting a suggestion
+
 
 
     const {
         suggestions,
         isLoading,
+        error,
         isOpen,
         setIsOpen
     } = useSuggestionFetcher({ query: inputValue, maxSuggestions, justSelected })
@@ -86,7 +88,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
                     inputRef={inputRef}
                     placeholder={placeholder}
                     aria-label={ariaLabel}
-                    error={inputError}
+                    error={inputError ?? (error ? `Server error: ${error}` : null)}
                     className={styles.input}
                 />
 
