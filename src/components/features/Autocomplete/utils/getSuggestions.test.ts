@@ -1,5 +1,9 @@
 import { getSuggestions } from './getSuggestions'
 
+beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => { })
+})
+
 beforeEach(() => {
     global.fetch = jest.fn();
 });
