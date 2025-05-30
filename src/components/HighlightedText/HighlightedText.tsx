@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './HighlightedText.module.css';
 
 interface HighlightedTextProps {
     text: string;
@@ -9,7 +10,6 @@ interface HighlightedTextProps {
 const HighlightedText: React.FC<HighlightedTextProps> = ({
     text,
     query,
-    highlightClassName,
 }) => {
     if (!query.trim()) return <>{text}</>;
 
@@ -20,7 +20,7 @@ const HighlightedText: React.FC<HighlightedTextProps> = ({
         <>
             {parts.map((part, index) =>
                 regex.test(part) ? (
-                    <mark key={index} className={highlightClassName}>
+                    <mark key={index} className={styles.highlight}>
                         {part}
                     </mark>
                 ) : (
