@@ -75,8 +75,13 @@ const Autocomplete: FC<AutocompleteProps> = ({
                             setInputError(null)
                         }
                         setInputValue(raw.trimStart())
+                        setJustSelected(false)
                     }}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={(e) => {
+                        setJustSelected(true)
+                        handleKeyDown(e)
+
+                    }}
                     inputRef={inputRef}
                     placeholder={placeholder}
                     error={inputError}
