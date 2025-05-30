@@ -1,15 +1,14 @@
-// src/components/features/Autocomplete/hooks/useSuggestionFetcher.test.ts
+
 import { renderHook, act, waitFor } from '@testing-library/react'
 import { useSuggestionFetcher } from './useSuggestionFetcher'
 
-// Mock la fonction getSuggestions (import relative à ton arborescence)
 jest.mock('../utils/getSuggestions', () => ({
     getSuggestions: jest.fn(),
 }))
 
 import { getSuggestions } from '../utils/getSuggestions'
 
-// Evite les timers qui peuvent gêner le debounce du hook
+
 jest.useFakeTimers()
 
 describe('useSuggestionFetcher', () => {
@@ -26,12 +25,11 @@ describe('useSuggestionFetcher', () => {
     })
 
     it('should set loading and call getSuggestions with valid input', async () => {
-        // Arrange
+
         (getSuggestions as jest.Mock).mockResolvedValueOnce([{ id: 1, name: 'Spain' }])
 
         const { result } = renderHook(() => useSuggestionFetcher({ query: 'spa' }))
 
-        // Avance le temps pour passer le debounce
         act(() => {
             jest.runAllTimers()
         })
