@@ -13,6 +13,7 @@ interface SearchFieldProps {
     isOpen?: boolean
     suggestions: Array<{ id: number; name: string }>;
     activeIndex: number
+    id?: string;
 
 }
 

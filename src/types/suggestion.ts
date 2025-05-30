@@ -18,4 +18,5 @@ export interface AutocompleteProps {
     activeIndex: number;
     placeholder?: string;
     ariaLabel?: string;
+    label: string;
 }

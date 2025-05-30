@@ -3,6 +3,7 @@ import { useSuggestionFetcher } from '../hooks/useSuggestionFetcher'
 import { getKeyDownHandler } from '../helpers/listNavigationHandler'
 import { SuggestionItem } from '../types/suggestion'
 import Autocomplete from '../components/Autocomplete/Autocomplete'
+import { useOnClickOutside } from '../hooks/useOnClickOutside'
 
 const CountrySelect = () => {
     const [inputValue, setInputValue] = useState('')
@@ -10,6 +11,8 @@ const CountrySelect = () => {
     const [justSelected, setJustSelected] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
     const [inputError, setInputError] = useState<string | undefined>(undefined)
+
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const {
         suggestions,
@@ -51,6 +54,11 @@ const CountrySelect = () => {
         setInputValue,
     })
 
+    useOnClickOutside(containerRef, () => {
+        setIsOpen(false);
+        setActiveIndex(-1);
+    });
+
     return (
         <Autocomplete
             value={inputValue}
@@ -65,6 +73,8 @@ const CountrySelect = () => {
             onKeyDown={handleKeyDown}
             inputRef={inputRef}
             activeIndex={activeIndex}
+            ref={containerRef}
+            label="Select a country"
         />
     )
 }
