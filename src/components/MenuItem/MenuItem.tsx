@@ -17,7 +17,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
   className,
 }) => (
   <li
-    key={item.id}
     id={`option-${item.id}`}
     role="option"
     aria-selected={isActive}
