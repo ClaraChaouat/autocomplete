@@ -14,3 +14,13 @@
   font-weight: bold;
   margin-bottom: 1.5rem;
 }
+
+.card {
+  border-radius: var(--spacing-xs);
+  padding: 2rem;
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
