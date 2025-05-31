@@ -26,7 +26,7 @@ export const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
       ariaLabel,
       label,
     },
-    outerRef
+    outerRef,
   ) => {
     useEffect(() => {
       if (!isOpen || activeIndex < 0) return;
@@ -98,7 +98,7 @@ export const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
         </div>
       </div>
     );
-  }
+  },
 );
 
 export default Autocomplete;
