@@ -1,4 +1,3 @@
-// components/Autocomplete/Autocomplete.tsx
 import React, { forwardRef } from "react";
 import styles from "./Autocomplete.module.css";
 

@@ -5,8 +5,10 @@ import CountrySelect from "./features/CountrySelected";
 const App: FC = () => {
   return (
     <div className={styles.appWrapper}>
-      <h1 className={styles.title}>Autocomplete Demo</h1>
-      <CountrySelect />
+      <div className={styles.card}>
+        <h1 className={styles.title}>Autocomplete Demo</h1>
+        <CountrySelect />
+      </div>
     </div>
   );
 };
