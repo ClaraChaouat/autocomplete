@@ -54,7 +54,6 @@ const CountrySelect = () => {
 
   useOnClickOutside(containerRef, () => {
     setIsOpen(false);
-    setInputValue("");
     setActiveIndex(-1);
     setJustSelected(false);
   });
