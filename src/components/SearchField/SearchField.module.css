@@ -1,5 +1,13 @@
 .errorMessage {
-  height: 1px;
+  position: absolute;
+  left: 0;
+  top: calc(100% + var(--spacing-xs));
+  width: 100%;
+  font-size: var(--font-size-sm);
   color: var(--color-error);
-  font-size: 0.9em;
+}
+
+.fieldWrapper {
+  position: relative;
+  width: 100%;
 }

@@ -33,7 +33,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
   const errorId = `${id}-error`;
 
   return (
-    <div>
+    <div className={styles.fieldWrapper}>
       <input
         ref={inputRef}
         type="text"
