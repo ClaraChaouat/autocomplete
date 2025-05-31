@@ -85,13 +85,13 @@ export const useSuggestionFetcher = ({
         isOpen: false,
       });
     }
-  }, [query, maxSuggestions]);
+  }, [query, maxSuggestions, fetchFn]);
 
   useEffect(() => {
     const debounceMs = 300;
     const timeoutId = setTimeout(fetchSuggestions, debounceMs);
     return () => clearTimeout(timeoutId);
-  }, [fetchSuggestions]);
+  }, [fetchSuggestions, fetchFn]);
 
   return {
     ...state,
