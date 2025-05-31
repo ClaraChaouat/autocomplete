@@ -6,7 +6,6 @@
   height: 100vh;
   text-align: center;
   padding: 2rem;
-  box-sizing: border-box;
 }
 
 .title {
@@ -16,8 +15,13 @@
 }
 
 .card {
+  background-color: var(--color-background);
+  position: relative;
+  overflow: visible;
+  border: 2px solid var(--color-border);
   border-radius: var(--spacing-xs);
   padding: 2rem;
+  padding-bottom: calc(2rem + 200px + var(--spacing-xs));
   max-width: var(--max-width);
   display: flex;
   flex-direction: column;
