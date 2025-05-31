@@ -19,4 +19,5 @@ export interface AutocompleteProps {
   placeholder?: string;
   ariaLabel?: string;
   label: string;
+  fetchSuggestions?: (query: string) => Promise<SuggestionItem[]>;
 }
