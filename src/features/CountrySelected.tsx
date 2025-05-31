@@ -68,7 +68,6 @@ const CountrySelect = () => {
       onChange={handleChange}
       onSelect={handleSelect}
       placeholder="Select a country..."
-      ariaLabel="Country selector"
       onKeyDown={handleKeyDown}
       inputRef={inputRef}
       activeIndex={activeIndex}
