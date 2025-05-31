@@ -1,1 +1,5 @@
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom";
+Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+  configurable: true,
+  value: jest.fn(),
+});
