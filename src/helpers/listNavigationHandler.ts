@@ -32,6 +32,14 @@ export function getKeyDownHandler({
         e.preventDefault();
         setActiveIndex((prev) => Math.max(prev - 1, -1));
         break;
+      case "End":
+        e.preventDefault();
+        if (suggestions.length) setActiveIndex(suggestions.length - 1);
+        break;
+      case "Home":
+        e.preventDefault();
+        if (suggestions.length) setActiveIndex(0);
+        break;
       case "Enter":
         e.preventDefault();
         if (activeIndex >= 0) {
