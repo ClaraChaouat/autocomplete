@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { SuggestionItem } from "../../types/suggestion";
 
 interface MenuItemProps {
@@ -27,4 +27,4 @@ const MenuItem: React.FC<MenuItemProps> = ({
   </li>
 );
 
-export default MenuItem;
+export default memo(MenuItem);
