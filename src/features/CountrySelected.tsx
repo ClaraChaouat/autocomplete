@@ -67,7 +67,7 @@ const CountrySelect = () => {
       error={inputError ?? (error ? `Server error: ${error}` : undefined)}
       onChange={handleChange}
       onSelect={handleSelect}
-      placeholder="Search countries..."
+      placeholder="Select a country..."
       ariaLabel="Country selector"
       onKeyDown={handleKeyDown}
       inputRef={inputRef}
