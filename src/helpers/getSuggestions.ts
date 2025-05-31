@@ -1,14 +1,12 @@
 import { mockData } from "../api/mockData";
 import { SuggestionItem } from "../types/suggestion";
 
-const USE_MOCK = false;
+const USE_MOCK = false; // Set to true to use mock data
 const REST_COUNTRIES_API_URL = "https://restcountries.com/v3.1/name/";
-// const REST_COUNTRIES_API_URL = 'https://restcountries-BROKEN.com/v3.1/name/';
+// const REST_COUNTRIES_API_URL = "https://restcountries-BROKEN.com/v3.1/name/";
 
 interface CountryResponseItem {
-  name: {
-    common: string;
-  };
+  name: { common: string };
 }
 
 class ApiError extends Error {
@@ -24,89 +22,62 @@ interface CacheItem {
   timestamp: number;
   data: SuggestionItem[];
 }
-
 const CACHE_DURATION = 5 * 60 * 1000;
 const cache = new Map<string, CacheItem>();
-
-const isCacheValid = (item: CacheItem): boolean =>
+const isCacheValid = (item: CacheItem) =>
   Date.now() - item.timestamp < CACHE_DURATION;
+const normalizeString = (s: string) => s.toLowerCase().trim();
 
-const normalizeString = (str: string): string => str.toLowerCase().trim();
-
-export const getSuggestions = async (
-  query: string,
-): Promise<SuggestionItem[]> => {
+export async function getSuggestions(query: string): Promise<SuggestionItem[]> {
   const normalizedQuery = normalizeString(query);
   if (!normalizedQuery) return [];
 
   const cached = cache.get(normalizedQuery);
-  if (cached && isCacheValid(cached)) {
-    return cached.data;
-  }
+  if (cached && isCacheValid(cached)) return cached.data;
+
+  let data: CountryResponseItem[];
 
   if (USE_MOCK) {
-    const results = mockData.filter((item) =>
-      normalizeString(item.name).includes(normalizedQuery),
-    );
-    cache.set(normalizedQuery, {
-      timestamp: Date.now(),
-      data: results,
-    });
-    return results;
-  }
-
-  try {
+    data = mockData.map((n) => ({ name: { common: n.name } }));
+  } else {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-    const response = await fetch(
+    const res = await fetch(
       `${REST_COUNTRIES_API_URL}${encodeURIComponent(normalizedQuery)}`,
-      {
-        signal: controller.signal,
-      },
+      { signal: controller.signal }
     );
-
     clearTimeout(timeoutId);
 
-    if (response.status === 404) {
-      return [];
-    }
+    if (res.status === 404) return [];
+    if (!res.ok) throw new ApiError(res.status, res.statusText);
 
-    if (!response.ok) {
-      throw new ApiError(
-        response.status,
-        `API request failed with status ${response.status}`,
-      );
-    }
+    data = await res.json();
+  }
 
-    const data: CountryResponseItem[] = await response.json();
-    const results = data
-      .map((country, index) => ({
-        id: index,
-        name: country.name.common,
-      }))
-      // The REST Countries API performs fuzzy matching and may return results
-      // that do not include the actual query string. We filter the API response
-      // client-side to ensure only items whose names contain the normalized query
-      // are shown in the dropdown.
-      .filter((item) => normalizeString(item.name).includes(normalizedQuery));
+  const all: SuggestionItem[] = data.map((country, idx) => ({
+    id: idx,
+    name: country.name.common,
+  }));
 
-    cache.set(normalizedQuery, {
-      timestamp: Date.now(),
-      data: results,
+  const norm = normalizeString;
+
+  const prefix = all.filter((c) => norm(c.name).startsWith(normalizedQuery));
+
+  const substr = all
+    .filter(
+      (c) =>
+        !norm(c.name).startsWith(normalizedQuery) &&
+        norm(c.name).includes(normalizedQuery)
+    )
+    .sort((a, b) => {
+      const posA = norm(a.name).indexOf(normalizedQuery);
+      const posB = norm(b.name).indexOf(normalizedQuery);
+      return posA === posB ? a.name.localeCompare(b.name) : posA - posB;
     });
 
-    return results;
-  } catch (error: unknown) {
-    if (error instanceof ApiError) {
-      console.error(`API Error (${error.status}):`, error.message);
-      throw error;
-    } else if (error instanceof Error && error.name === "AbortError") {
-      console.error("Request timed out");
-      throw new Error("Request timed out after 5 seconds");
-    } else {
-      console.error("Unexpected error:", error);
-      throw new Error("Failed to fetch suggestions");
-    }
-  }
-};
+  const results = [...prefix, ...substr];
+
+  cache.set(normalizedQuery, { timestamp: Date.now(), data: results });
+  return results;
+}
