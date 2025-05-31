@@ -6,7 +6,7 @@
 
 :root {
   --font-family-base: system-ui, sans-serif;
-  --max-width: 25rem;
+  --max-width: var(--ac-card-max-width, 25rem);
   --color-border: #ccc;
   --color-text: #333;
   --color-text-muted: #666;
