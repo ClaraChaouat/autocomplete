@@ -6,7 +6,7 @@ const App: FC = () => {
   return (
     <div className={styles.appWrapper}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Autocomplete Demo</h1>
+        <h1 className={styles.title}>Onboarding information </h1>
         <CountrySelect />
       </div>
     </div>
