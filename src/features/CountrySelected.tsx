@@ -4,34 +4,37 @@ import { getKeyDownHandler } from "../helpers/listNavigationHandler";
 import { SuggestionItem } from "../types/suggestion";
 import Autocomplete from "../components/Autocomplete/Autocomplete";
 import { useOnClickOutside } from "../hooks/useOnClickOutside";
-import { VALID_INPUT_REGEX } from "../constants/input";
+import { getSuggestions } from "../helpers/getSuggestions";
 
-const CountrySelect = () => {
+export interface CountrySelectProps {
+  fetchSuggestions?: (query: string) => Promise<SuggestionItem[]>;
+}
+
+const CountrySelect: React.FC<CountrySelectProps> = ({
+  fetchSuggestions = getSuggestions,
+}) => {
   const [inputValue, setInputValue] = useState("");
   const [activeIndex, setActiveIndex] = useState(-1);
   const [justSelected, setJustSelected] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [inputError, setInputError] = useState<string | undefined>(undefined);
+  const [inputError, setInputError] = useState<string | undefined>();
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { suggestions, error, isOpen, isLoading, setIsOpen } =
     useSuggestionFetcher({
       query: inputValue,
       justSelected,
+      fetchFn: fetchSuggestions,
     });
 
   const handleChange = (value: string) => {
-    const isValid = VALID_INPUT_REGEX.test(value);
-
-    if (!isValid) {
-      setInputError(
-        "Invalid input – only letters, spaces, apostrophes, and hyphens are allowed."
-      );
-    } else {
-      setInputError(undefined);
-    }
-
+    const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(value);
+    setInputError(
+      isValid
+        ? undefined
+        : "Invalid input – only letters, spaces, apostrophes, and hyphens are allowed."
+    );
     setInputValue(value.trimStart());
     setJustSelected(false);
   };

@@ -22,12 +22,14 @@ interface UseSuggestionFetcherProps {
   query: string;
   maxSuggestions?: number;
   justSelected?: boolean;
+  fetchFn?: (q: string) => Promise<SuggestionItem[]>;
 }
 
 export const useSuggestionFetcher = ({
   query,
   maxSuggestions = AUTOCOMPLETE_CONFIG.MAX_SUGGESTIONS,
   justSelected,
+  fetchFn = getSuggestions,
 }: UseSuggestionFetcherProps) => {
   const [state, setState] = useState<FetchState>(initialState);
   const justSelectedRef = useRef(false);
@@ -56,7 +58,7 @@ export const useSuggestionFetcher = ({
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      const results = await getSuggestions(trimmedQuery);
+      const results = await fetchFn(trimmedQuery);
       setState((prev) => {
         const nextSuggestions = results.slice(0, maxSuggestions);
 
