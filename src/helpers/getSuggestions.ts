@@ -1,7 +1,7 @@
 import { mockData } from "../api/mockData";
 import { SuggestionItem } from "../types/suggestion";
 
-const USE_MOCK = false; // Set to true to use mock data
+const USE_MOCK = false;
 const REST_COUNTRIES_API_URL = "https://restcountries.com/v3.1/name/";
 // const REST_COUNTRIES_API_URL = "https://restcountries-BROKEN.com/v3.1/name/";
 
@@ -50,8 +50,12 @@ export async function getSuggestions(query: string): Promise<SuggestionItem[]> {
     clearTimeout(timeoutId);
 
     if (res.status === 404) return [];
-    if (!res.ok) throw new ApiError(res.status, res.statusText);
-
+    if (!res.ok) {
+      throw new ApiError(
+        res.status,
+        `API request failed with status ${res.status}`
+      );
+    }
     data = await res.json();
   }
 
