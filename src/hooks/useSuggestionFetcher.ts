@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { getSuggestions } from "../helpers/getSuggestions";
 import { AUTOCOMPLETE_CONFIG } from "../constants/autocompleteConstants";
 import { SuggestionItem } from "../types/suggestion";
+import { VALID_INPUT_REGEX } from "../constants/input";
 
 interface FetchState {
   suggestions: SuggestionItem[];
@@ -43,7 +44,7 @@ export const useSuggestionFetcher = ({
 
     const trimmedQuery = query.trim();
 
-    const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(trimmedQuery);
+    const isValid = VALID_INPUT_REGEX.test(trimmedQuery);
     if (
       !isValid ||
       trimmedQuery.length < AUTOCOMPLETE_CONFIG.MIN_SEARCH_LENGTH
@@ -62,7 +63,7 @@ export const useSuggestionFetcher = ({
         const areSame =
           prev.suggestions.length === nextSuggestions.length &&
           prev.suggestions.every(
-            (item, i) => item.name === nextSuggestions[i].name,
+            (item, i) => item.name === nextSuggestions[i].name
           );
 
         return areSame
