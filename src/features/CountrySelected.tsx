@@ -25,7 +25,7 @@ const CountrySelect = () => {
 
     if (!isValid) {
       setInputError(
-        "Invalid input – only letters, spaces, apostrophes, and hyphens are allowed.",
+        "Invalid input – only letters, spaces, apostrophes, and hyphens are allowed."
       );
     } else {
       setInputError(undefined);
