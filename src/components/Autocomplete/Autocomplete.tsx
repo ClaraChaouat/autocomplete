@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import styles from "./Autocomplete.module.css";
 
 import NoResult from "../NoResults/NoResults";
@@ -28,6 +28,14 @@ export const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
     },
     outerRef
   ) => {
+    useEffect(() => {
+      if (!isOpen || activeIndex < 0) return;
+
+      const activeId = `option-${suggestions[activeIndex]?.id}`;
+      const el = document.getElementById(activeId);
+      el?.scrollIntoView({ block: "nearest" });
+    }, [activeIndex, isOpen, suggestions]);
+
     return (
       <div ref={outerRef} className={styles.container}>
         <div className={styles.statusRow}>
