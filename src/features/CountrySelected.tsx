@@ -4,6 +4,7 @@ import { getKeyDownHandler } from "../helpers/listNavigationHandler";
 import { SuggestionItem } from "../types/suggestion";
 import Autocomplete from "../components/Autocomplete/Autocomplete";
 import { useOnClickOutside } from "../hooks/useOnClickOutside";
+import { VALID_INPUT_REGEX } from "../constants/input";
 
 const CountrySelect = () => {
   const [inputValue, setInputValue] = useState("");
@@ -21,7 +22,7 @@ const CountrySelect = () => {
     });
 
   const handleChange = (value: string) => {
-    const isValid = /^[a-zA-ZÀ-ÿ\s'-]*$/.test(value);
+    const isValid = VALID_INPUT_REGEX.test(value);
 
     if (!isValid) {
       setInputError(
