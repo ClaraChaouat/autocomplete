@@ -34,7 +34,7 @@ The goal of this project is to implement a responsive autocomplete React compone
 
 `unzip autocomplete.zip`
 
-`cd <name-of-the-folder>`
+`cd <name-of-the-unzipped-folder>`
 
 2. Install dependencies
 
