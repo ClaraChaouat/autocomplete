@@ -32,9 +32,9 @@ The goal of this project is to implement a responsive autocomplete React compone
 
 1. Unzip and enter the project
 
-`unzip autocomplete-deel.zip`
+`unzip autocomplete.zip`
 
-`cd autocomplete-deel`
+`cd <name-of-the-folder>`
 
 2. Install dependencies
 
