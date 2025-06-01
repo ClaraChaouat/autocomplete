@@ -21,6 +21,7 @@ const buildProps = (
   label: "Country",
   placeholder: "Search…",
   ariaLabel: "Autocomplete",
+  setActiveIndex: jest.fn(),
   ...over,
 });
 
