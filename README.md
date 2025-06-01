@@ -75,3 +75,5 @@ Then
 # Questions - Part 2
 
 You'll find the answers to the questions in the `questions.md` file located at the root of this project.
+
+Happy reviewing !
