@@ -7,6 +7,7 @@ interface MenuItemProps {
   onClick: () => void;
   children?: React.ReactNode;
   className?: string;
+  onMouseEnter?: () => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
@@ -15,6 +16,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   onClick,
   children,
   className,
+  onMouseEnter,
 }) => (
   <li
     id={`option-${item.id}`}
@@ -22,6 +24,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
     aria-selected={isActive}
     className={className}
     onClick={onClick}
+    onMouseEnter={onMouseEnter}
   >
     {children || item.name}
   </li>

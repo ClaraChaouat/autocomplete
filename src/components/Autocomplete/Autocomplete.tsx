@@ -25,6 +25,7 @@ export const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
       placeholder,
       ariaLabel,
       label,
+      setActiveIndex,
     },
     outerRef
   ) => {
@@ -79,6 +80,7 @@ export const Autocomplete = forwardRef<HTMLDivElement, AutocompleteProps>(
                     item={item}
                     isActive={index === activeIndex}
                     onClick={() => onSelect(item)}
+                    onMouseEnter={() => setActiveIndex(index)}
                     className={`${styles.suggestionItem} ${
                       index === activeIndex ? styles.active : ""
                     }`}

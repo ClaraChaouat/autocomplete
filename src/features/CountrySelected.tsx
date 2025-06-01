@@ -76,6 +76,7 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
       activeIndex={activeIndex}
       ref={containerRef}
       label="Country of residence"
+      setActiveIndex={setActiveIndex}
     />
   );
 };
