@@ -30,14 +30,16 @@ describe("getSuggestions", () => {
 
     const results = await getSuggestions("fra");
     expect(
-      results.some((item) => item.name.toLowerCase().includes("fra")),
+      results.some((item) => item.name.toLowerCase().includes("fra"))
     ).toBe(true);
   });
 
   it("handles API errors gracefully", async () => {
-    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("API Error"));
+    (global.fetch as jest.Mock).mockRejectedValueOnce(
+      new Error("Failed to fetch suggestions")
+    );
     await expect(getSuggestions("test")).rejects.toThrow(
-      "Failed to fetch suggestions",
+      "Failed to fetch suggestions"
     );
   });
 
@@ -48,7 +50,7 @@ describe("getSuggestions", () => {
       json: async () => ({}),
     });
     await expect(getSuggestions("test")).rejects.toThrow(
-      "API request failed with status 500",
+      "API request failed with status 500"
     );
   });
 
